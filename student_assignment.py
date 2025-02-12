@@ -14,8 +14,13 @@ def hw02_1(q1_pdf):
     return chunks[-1]
 
 def hw02_2(q2_pdf):
-    pass
+    loader = PyPDFLoader(q2_pdf)
+    docs = loader.load()
+    texts = "\n".join(doc.page_content for doc in docs)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_overlap=0, chunk_size=5, separators=["\n *第 "], is_separator_regex=True)
+    chunks = text_splitter.split_text(texts)
+    return len(chunks)
 
 if __name__ == "__main__":
-    print(hw02_1(q1_pdf))
-    hw02_2(q2_pdf)
+    #print(hw02_1(q1_pdf))
+    print(hw02_2(q2_pdf))
